@@ -1,0 +1,166 @@
+AllCops:
+  Exclude:
+
+## Bundler Cops http://rubocop.readthedocs.io/en/latest/cops_bundler/
+
+## Layout Cops http://rubocop.readthedocs.io/en/latest/cops_layout/
+Layout/ClassStructure:
+  Description: Checks if the code style follows the ExpectedOrder configuration
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-classes
+  Enabled: true
+  # As of rubocop 0.52.1, this causes many errors in autocorrect mode.
+  AutoCorrect: false
+  Categories:
+    module_inclusion:
+      - prepend
+      - include
+      - extend
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - initializer
+    - public_class_methods
+    - public_methods
+    - protected_methods
+    - private_methods
+
+Layout/EmptyLineBetweenDefs:
+  Description: >-
+                  This cop checks whether method definitions are separated by
+                  one empty line.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#empty-lines-between-methods
+  AllowAdjacentOneLineDefs: true
+
+Layout/IndentArray:
+  Description: >-
+                  This cop checks the indentation of the first element in an
+                  array literal where the opening bracket and the first element
+                  are on separate lines. The other elements' indentations are
+                  handled by the AlignArray cop.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#align-multiline-arrays
+  # DefaultEnforcedStyle: special_inside_parentheses
+  EnforcedStyle: consistent
+
+Layout/IndentHash:
+  Description: >-
+                  This cops checks the indentation of the first key in a hash
+                  literal where the opening brace and the first key are on
+                  separate lines. The other keys' indentations are handled by
+                  the AlignHash cop.
+  StyleGuide: N/A
+  # DefaultEnforcedStyle: special_inside_parentheses
+  EnforcedStyle: consistent
+
+Layout/IndentHeredoc:
+  Description: This cops checks the indentation of the here document bodies.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#squiggly-heredocs
+  # DefaultEnforcedStyle: auto_detection
+  EnforcedStyle: squiggly
+
+Layout/MultilineMethodCallIndentation:
+  Description: >-
+                  This cop checks the indentation of the method name part in
+                  method calls that span more than one line.
+  StyleGuide: N/A
+  # DefaultEnforcedStyle: aligned
+  EnforcedStyle: indented_relative_to_receiver
+
+## Lint Cops http://rubocop.readthedocs.io/en/latest/cops_lint/
+Lint/InheritException:
+  Description: >-
+                  This cop looks for error classes inheriting from Exception and
+                  its standard library subclasses, excluding subclasses of
+                  StandardError.
+  StyleGuide: N/A
+  # DefaultEnforcedStyle: runtime_error
+  EnforcedStyle: standard_error
+
+Metrics/BlockLength:
+  Description: >-
+                This cop checks if the length of a block exceeds some maximum
+                value. Comment lines can optionally be ignored. The maximum
+                allowed length is configurable. The cop can be configured to
+                ignore blocks passed to certain methods.
+  StyleGuide: N/A
+  # DefaultMax: 25
+  Max: 30
+  ExcludedMethods:
+    - describe
+    - context
+    - let
+    - shared_examples
+
+Metrics/CyclomaticComplexity:
+  Description: >-
+                 A complexity metric that is strongly correlated to the number
+                 of test cases needed to validate a method.
+  StyleGuide: N/A
+  # DefaultMax: 6
+  Max: 10
+
+Metrics/LineLength:
+  Description: 'Maximum line length.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  # DefaultMax: 80
+  # Github's PRs display 120 cols. without scrolling.  Keep line length to that
+  Max: 120
+  IgnoreCopDirectives: true
+
+Metrics/MethodLength:
+  Description: 'Maximum method length.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  # DefaultMax: 10
+  Max: 15
+
+Metrics/PerceivedComplexity:
+  Description: >-
+                  This cop tries to produce a complexity score that's a measure
+                  of the complexity the reader experiences when looking at a
+                  method.
+  StyleGuide: N/A
+  # DefaultMax: 7
+  Max: 11
+
+## Naming Cops http://rubocop.readthedocs.io/en/latest/cops_naming/
+Naming/VariableNumber:
+  Description: >-
+                  This cop makes sure that all numbered variables use the
+                  configured style, snake_case, normalcase or non_integer, for
+                  their numbering.
+  StyleGuide: N/A
+  # DefaultEnforcedStyle: normalcase
+  EnforcedStyle: snake_case
+
+## Performance Cops http://rubocop.readthedocs.io/en/latest/cops_performance/
+
+## Security Cops http://rubocop.readthedocs.io/en/latest/cops_security/
+
+## Style Cops http://rubocop.readthedocs.io/en/latest/cops_style/
+Style/Documentation:
+  Description: >-
+                  This cop checks for missing top-level documentation of classes
+                  and modules. Classes with no body are exempt from the check
+                  and so are namespace modules - modules that have nothing in
+                  their bodies except classes, other modules, or constant
+                  definitions.
+
+                  The documentation requirement is annulled if the
+                  class or module has a "#:nodoc:" comment next to it. Likewise,
+                  "#:nodoc: all" does the same for all its children.
+  # Would love to enable at future date, but too much to ask at this time. -Luckett 2018/01/08
+  Enabled: false
+
+Style/DoubleNegation:
+  Description: >-
+                  This cop checks for uses of double negation (!!) to convert
+                  something to a boolean value. As this is both cryptic and
+                  usually redundant, it should be avoided.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-bang-bang
+  # We find this to be a useful construct, and are allowing it in our code. -Luckett 2018/01/08
+  Enabled: false
+
+Style/FormatStringToken:
+  Description: Use a consistent style for named format string tokens.
+  StyleGuide: N/A
+  # DefaultEnforcedStyle: annotated
+  EnforcedStyle: template
